@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Application main class.
+ * Application main class 2.
  */
 @SpringBootApplication
 public class AgrixApplication {
