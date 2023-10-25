@@ -6,7 +6,7 @@ import com.betrybe.agrix.security.Role;
 /**
  * Javadoc.
  */
-public record PersonDto(Long id, Role role, String username, String password) {
+public record PersonDto(Long id, String username, String password, Role role) {
   /**
    * Javadoc.
    */
@@ -24,9 +24,9 @@ public record PersonDto(Long id, Role role, String username, String password) {
   public static PersonDto convertToDto(Person person) {
     return new PersonDto(
         person.getId(),
-        person.getRole(),
         person.getUsername(),
-        person.getPassword()
+        person.getPassword(),
+        person.getRole()
     );
   }
 }

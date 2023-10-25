@@ -13,8 +13,9 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build-image /app/target/*.jar /app/app.jar
+COPY --from=build-image /to-build-app/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "myapp.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
