@@ -79,6 +79,11 @@ public class Person implements UserDetails {
     );
   }
 
+  @JsonIgnore
+  public String getAuthority() {
+    return this.getRole().getName();
+  }
+
   public String getPassword() {
     return password;
   }
