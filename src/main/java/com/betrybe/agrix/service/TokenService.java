@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenService {
 
-  @Value("api.security.token.secret")
+  @Value("${api.security.token.secret}")
   private String secret;
 
   /**
@@ -24,7 +24,7 @@ public class TokenService {
   public String generateToken(Person person) {
     Algorithm algorithm = Algorithm.HMAC256(secret);
     return JWT.create()
-        .withIssuer("trybetrack")
+        .withIssuer("agrix")
         .withSubject(person.getUsername())
         .withExpiresAt(generateExpirationDate())
         .sign(algorithm);
@@ -42,7 +42,7 @@ public class TokenService {
   public String validateToken(String token) {
     Algorithm algorithm = Algorithm.HMAC256(secret);
     return JWT.require(algorithm)
-        .withIssuer("trybetrack")
+        .withIssuer("agrix")
         .build()
         .verify(token)
         .getSubject();

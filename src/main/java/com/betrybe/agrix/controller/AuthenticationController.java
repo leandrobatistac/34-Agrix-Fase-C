@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Javadoc.
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -24,15 +27,27 @@ public class AuthenticationController {
   private final PersonService personService;
   private final TokenService tokenService;
 
-  public AuthenticationController(AuthenticationManager authenticationManager, PersonService personService, TokenService tokenService) {
+  /**
+   * Javadoc.
+   */
+  public AuthenticationController(
+      AuthenticationManager authenticationManager,
+      PersonService personService,
+      TokenService tokenService) {
     this.authenticationManager = authenticationManager;
     this.personService = personService;
     this.tokenService = tokenService;
   }
+  /**
+   * Javadoc.
+   */
+
   @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody AuthenticationDto authenticationDto){
+
+  public ResponseEntity<TokenDto> login(@RequestBody AuthenticationDto authenticationDto) {
     UsernamePasswordAuthenticationToken usernamePassword =
-        new UsernamePasswordAuthenticationToken(authenticationDto.username(), authenticationDto.password());
+        new UsernamePasswordAuthenticationToken(
+            authenticationDto.username(), authenticationDto.password());
     Authentication auth = authenticationManager.authenticate(usernamePassword);
     Person person = (Person) auth.getPrincipal();
     String token = tokenService.generateToken(person);

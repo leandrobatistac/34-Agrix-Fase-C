@@ -19,32 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Javadoc.
  */
 @Configuration
-@EnableWebSecurity
 public class SecurityConfiguration {
-  private final SecurityFilter securityFilter;
-  @Autowired
-  public SecurityConfiguration(SecurityFilter securityFilter) {
-    this.securityFilter = securityFilter;
-  }
-  /**
-   * Javadoc.
-   */
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    return httpSecurity
-        .csrf(AbstractHttpConfigurer::disable)
-        .sessionManagement(
-            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-            .requestMatchers(HttpMethod.POST, "/persons").permitAll()
-            .anyRequest()
-            .authenticated()
-        )
-        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-        .build();
-  }
-
   @Bean
   public AuthenticationManager authenticationManager(
       AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -52,7 +27,7 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder(){
+  public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 }
